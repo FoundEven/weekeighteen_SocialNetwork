@@ -1,17 +1,17 @@
-const User = require("../models/User");
+const Thought = require("../models/Thought");
 
 module.exports = {
-  async getUsers(req, res) {
+  async getThought(req, res) {
     try {
-      const users = await User.find();
+      const users = await Thought.find();
       res.json(users);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  async getSingleUser(req, res) {
+  async getSingleThought(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId }).select(
+      const user = await Thought.findOne({ _id: req.params.thoughtId }).select(
         "-__v"
       );
 
@@ -24,21 +24,21 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // create a new user
-  async createUser(req, res) {
+  // create a new thought
+  async createThought(req, res) {
     try {
-      const dbUserData = await User.create(req.body);
+      const dbUserData = await Thought.create(req.body);
       res.json(dbUserData);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  // change user
-  async putUser(req, res) {
+  //change thought
+  async putThought(req, res) {
     try {
       const result = await User.findOneAndUpdate(
-        { id: req.params.userId },
-        { username: req.body.username },
+        { id: req.params.thoughtId },
+        { thoughtText: req.body.thoughtText },
         { new: true }
       );
 
@@ -51,10 +51,10 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // delete user
-  async deleteUser(req, res) {
+  // delete thought
+  async deleteThought(req, res) {
     try {
-      const result = await User.findOneAndDelete({ id: req.params.userId });
+      const result = await User.findOneAndDelete({ id: req.params.thoughtId });
 
       if (!result) {
         return res.status(404).json({ message: "No user with that ID" });
@@ -65,19 +65,21 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // creates new friend
-  async createUserFriend(req, res) {
+  // creates new reaction
+  async createReaction(req, res) {
     try {
-      const dbUserData = await User.create(req.body);
+      const dbUserData = await Thought.create(req.body);
       res.json(dbUserData);
     } catch (err) {
       res.status(500).json(err);
     }
   },
-  //deletes friend
-  async deleteUserFriend(req, res) {
+  //deletes reaction
+  async deleteReaction(req, res) {
     try {
-      const result = await User.findOneAndDelete({ id: req.params.friendId });
+      const result = await Thought.findOneAndDelete({
+        id: req.params.reactionId,
+      });
 
       if (!result) {
         return res.status(404).json({ message: "No user with that ID" });
