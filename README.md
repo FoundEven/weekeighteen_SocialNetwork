@@ -16,4 +16,6 @@ You will need Insomnia installed.
 
 To start it you will need to type npm run start in the terminal to start the server. Then you will need to use Insomnia to call the routes.
 
-this is a link to repository: (https://github.com/FoundEven/weekeighteen_SocialNetwork)
+Link to walkthrough video: (https://drive.google.com/file/d/1FnXAlM-Sv-_anPFf2uYv9nrrhxxSF538/view?usp=sharing)
+
+This is a link to repository: (https://github.com/FoundEven/weekeighteen_SocialNetwork)
