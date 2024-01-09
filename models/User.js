@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const Thought = require("./Thought");
+const Thought = require(__dirname + "/Thought.js").schema;
 
 // Schema to create User model
 const userSchema = new Schema(
@@ -21,8 +21,13 @@ const userSchema = new Schema(
         message: "Invalid email address format",
       },
     },
-    thoughts: [Thought],
-    friends: [User],
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Thought",
+      },
+    ],
+    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
@@ -39,7 +44,7 @@ userSchema
   .virtual("friendCount")
   // Getter
   .get(function () {
-    return friends.length + 1;
+    return 1;
   });
 
 // Initialize our User model

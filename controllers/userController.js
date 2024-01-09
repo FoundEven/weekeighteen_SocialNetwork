@@ -4,8 +4,10 @@ module.exports = {
   async getUsers(req, res) {
     try {
       const users = await User.find();
+      console.log(users);
       res.json(users);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -37,7 +39,7 @@ module.exports = {
   async putUser(req, res) {
     try {
       const result = await User.findOneAndUpdate(
-        { id: req.params.userId },
+        { _id: req.params.userId },
         { username: req.body.username },
         { new: true }
       );
@@ -54,7 +56,7 @@ module.exports = {
   // delete user
   async deleteUser(req, res) {
     try {
-      const result = await User.findOneAndDelete({ id: req.params.userId });
+      const result = await User.findOneAndDelete({ _id: req.params.userId });
 
       if (!result) {
         return res.status(404).json({ message: "No user with that ID" });
@@ -77,7 +79,7 @@ module.exports = {
   //deletes friend
   async deleteUserFriend(req, res) {
     try {
-      const result = await User.findOneAndDelete({ id: req.params.friendId });
+      const result = await User.findOneAndDelete({ _id: req.params.friendId });
 
       if (!result) {
         return res.status(404).json({ message: "No user with that ID" });
